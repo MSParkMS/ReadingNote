@@ -12,10 +12,13 @@
     <h1>Error</h1>
     <% if (locals.str) { %>
       <h2><%= str %></h2>
+    <% } else { %>
+      <h2>Internal Error</h2>
     <% } %>
-
     <% if (locals.goback) { %>
       <a href=<%= goback.link %>> <%= goback.str %> </a>
+    <% } else { %>
+      <a href='/'>처음으로</a>
     <% } %>
   </center>
 </body>

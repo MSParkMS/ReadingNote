@@ -4,7 +4,7 @@ const Scheme = mongoose.Schema;
 
 const BookListScheme = new Scheme({
   id: String,
-  books: [Book.schema]
+  books: [mongoose.Schema.Types.ObjectId]
 });
 
 module.exports = mongoose.model('booklist', BookListScheme);

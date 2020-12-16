@@ -6,7 +6,6 @@ const BookScheme = new Scheme({
   author: String,
   publisher: String,
   pub_year: Number,
-  imgUrl: String,
 });
 
 module.exports = mongoose.model('book', BookScheme);

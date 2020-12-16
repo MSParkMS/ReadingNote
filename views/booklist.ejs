@@ -7,8 +7,46 @@
 <body>
   <%- include('nav') %>
   <center>
-    <% if (locals.books) { %>
+    <% if (locals.books.length > 0) { %>
       <h1><%= nickname %>님 책 목록입니다.</h1>
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th class="align-center">제목</th>
+            <th class="align-center">저자</th>
+            <th class="align-center">출판사</th>
+            <th class="align-center">출판년도</th>
+            <th class="align-center">노트</th>
+            <th class="align-center">수정</th>
+            <th class="align-center">삭제</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% locals.books.forEach((book) => { %>
+          <tr>
+            <td class="align-center"><%=book.title%></td>
+            <td class="align-center"><%=book.author%></td>
+            <td class="align-center"><%=book.publisher%></td>
+            <td class="align-center"><%=book.pub_year%></td>
+            <td class="align-center">
+              <form method="get" action="/note/<%=book.title%>">
+                <input type="submit" value="노트">
+              </form>
+            </td>
+            <td class="align-center">
+              <form method="put" action="/note/<%=book.title%>">
+                <input type="submit" value="수정">
+              </form>
+            </td>
+            <td class="align-center">
+              <form method="post" action="/booklist/del/<%=book.title%>/<%=book.pub_year%>">
+                <input type="submit" value="삭제">
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+        </tbody>
+      </table>
     <% } else { %>
       <h1><%= nickname %>님 등록된 책이 없습니다.</h1>
     <% } %>
@@ -30,10 +68,6 @@
         <tr>
           <td><labal>출판년도</labal></td>
           <td><input type="text" name="pub_year" placeholder="출판년도"></td>
-        </tr>
-        <tr>
-          <td><labal>이미지 주소</labal></td>
-          <td><input type="text" name="imgUrl" placeholder="이미지 주소"></td>
         </tr>
       </table>
       <br>

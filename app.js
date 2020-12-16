@@ -51,6 +51,7 @@ app.use((req, res, next) => {
 
 app.use('/home', require('./routes/home'));
 app.use('/booklist', require('./routes/booklist'));
+app.use('/note', require('./routes/note'));
 
 // error midleware
 app.use((req, res, next) => {
