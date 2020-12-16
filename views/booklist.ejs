@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <%- include('head') %>
+</head>
+
+<body>
+  <%- include('nav') %>
+  <center>
+    <% if (locals.books) { %>
+      <h1><%= nickname %>님 책 목록입니다.</h1>
+    <% } else { %>
+      <h1><%= nickname %>님 등록된 책이 없습니다.</h1>
+    <% } %>
+    <br>
+    <form method="post" action="/booklist">
+      <table>
+        <tr>
+          <td><labal>제목</labal></td>
+          <td><input type="text" name="title" placeholder="제목"></td>
+        </tr>
+        <tr>
+          <td><labal>저자</labal></td>
+          <td><input type="text" name="author" placeholder="저자명"></td>
+        </tr>
+        <tr>
+          <td><labal>출판사</labal></td>
+          <td><input type="text" name="publisher" placeholder="출판사명"></td>
+        </tr>
+        <tr>
+          <td><labal>출판년도</labal></td>
+          <td><input type="text" name="pub_year" placeholder="출판년도"></td>
+        </tr>
+        <tr>
+          <td><labal>이미지 주소</labal></td>
+          <td><input type="text" name="imgUrl" placeholder="이미지 주소"></td>
+        </tr>
+      </table>
+      <br>
+      <input type="submit" value="책 추가하기">
+    </form>
+  </center>
+</body>
+
+</html>

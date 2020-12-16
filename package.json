@@ -1,0 +1,32 @@
+{
+  "name": "readingnote",
+  "version": "0.0.1",
+  "description": "Reading Note",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSParkMS/ReadingNote.git"
+  },
+  "author": "msparkms@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MSParkMS/ReadingNote/issues"
+  },
+  "homepage": "https://github.com/MSParkMS/ReadingNote#readme",
+  "keywords": [
+    "Reading"
+  ],
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

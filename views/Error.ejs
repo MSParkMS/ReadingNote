@@ -1,0 +1,23 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>
+    Error
+  </title>
+</head>
+
+<body>
+  <center>
+    <h1>Error</h1>
+    <% if (locals.str) { %>
+      <h2><%= str %></h2>
+    <% } %>
+
+    <% if (locals.goback) { %>
+      <a href=<%= goback.link %>> <%= goback.str %> </a>
+    <% } %>
+  </center>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <%- include('head') %>
+</head>
+
+<body>
+  <center>
+    <h1>Register</h1>
+    <br>
+    <form method="post" action="/register">
+      <table>
+        <tr>
+          <td><labal>ID</labal></td>
+          <td><input type="text" name="user_id" placeholder="ID"></td>
+        </tr>
+        <tr>
+        <tr>
+          <td><labal>PW</labal></td>
+          <td><input type="password" name="user_pw" placeholder="Password"></td>
+        </tr>
+        <tr>
+          <td><labal>닉네임</labal></td>
+          <td><input type="text" name="user_nickname" placeholder="닉네임"></td>
+        </tr>
+      </table>
+      <br>
+      <input type="submit" value="회원가입">
+    </form>
+  </center>
+</body>
+
+</html>
