@@ -78,31 +78,20 @@ exports.addBookList = (req, res) => {
 }
 
 exports.delBookList = (req, res) => {
-  console.log('test 1');
   BookList.findOne({id: req.session.user.id}).exec()
     .then((booklist) => {
-      console.log('test 2');
       Book.findOne({title: req.params.title, pub_year: req.params.pub_year}).exec()
       .then((book) => {
-        console.log('test 3');
-        console.log(booklist.books);
-        console.log(book._id);
-        console.log(req.params);
-        console.log(req.params.title);
-        console.log(req.params.pub_year);
         booklist.books.remove(book._id);
         return booklist.save();
       })
       .then((booklist) => {
-        console.log('test 4');
-        return Note.remove({id: req.session.user.id, title: req.params.title}).exec();
+        return Note.deleteOne({id: req.session.user.id, title: req.params.title}).exec();
       })
       .then((result) => {
-        console.log('test 5');
         res.redirect('/booklist');
       })
       .catch((err) => {
-        console.log('test 6');
         res.render('error.ejs', err);    
       })
     })
