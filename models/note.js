@@ -4,6 +4,7 @@ const Scheme = mongoose.Schema;
 const NoteScheme = new Scheme({
   id: String,
   title: String,
+  pub_year: Number,
   comments: [String]
 });
 

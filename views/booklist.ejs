@@ -28,12 +28,14 @@
             <td class="align-center align-middle"><%=book.publisher%></td>
             <td class="align-center align-middle"><%=book.pub_year%></td>
             <td class="align-center" width="5%">
-              <form method="get" action="/note/<%=book.title%>">
+              <form method="get" action="/note/<%=book.title%>/<%=book.pub_year%>">
                 <input type="submit" value="노트">
               </form>
             </td>
             <td class="align-center" width="5%">
-              <form method="post" action="/booklist/del/<%=book.title%>/<%=book.pub_year%>">
+              <form method="post" action="/booklist/del">
+                <input type="hidden" name="title" value="<%=book.title%>">
+                <input type="hidden" name="pub_year" value="<%=book.pub_year%>">
                 <input type="submit" value="삭제">
               </form>
             </td>

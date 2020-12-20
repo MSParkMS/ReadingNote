@@ -80,13 +80,13 @@ exports.addBookList = (req, res) => {
 exports.delBookList = (req, res) => {
   BookList.findOne({id: req.session.user.id}).exec()
     .then((booklist) => {
-      Book.findOne({title: req.params.title, pub_year: req.params.pub_year}).exec()
+      Book.findOne({title: req.body.title, pub_year: req.body.pub_year}).exec()
       .then((book) => {
         booklist.books.remove(book._id);
         return booklist.save();
       })
       .then((booklist) => {
-        return Note.deleteOne({id: req.session.user.id, title: req.params.title}).exec();
+        return Note.deleteOne({id: req.session.user.id, title: req.body.title, pub_year: req.body.pub_year}).exec();
       })
       .then((result) => {
         res.redirect('/booklist');

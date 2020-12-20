@@ -3,9 +3,9 @@ const User = require('../models/user');
 
 exports.login = (req, res) => {
   User.findOne({'id' : req.body.user_id, 'pw': req.body.user_pw}).exec()
-    .then((document) => {
-      if (document) {
-        req.session.user = {id: document.id, nickname: document.nickname};
+    .then((user) => {
+      if (user) {
+        req.session.user = {id: user.id, nickname: user.nickname};
         res.redirect('/home');
       } else {
         res.render('error.ejs', { str: 'ID / PW가 잘못되었습니다.' });

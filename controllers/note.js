@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const Note = require('../models/note');
 
 exports.getNotes = (req, res) => {
-  Note.findOne({id: req.session.user.id, title: req.params.title}).exec()
+  Note.findOne({id: req.session.user.id, title: req.params.title, pub_year: req.params.pub_year}).exec()
     .then((note) => {
       if (!note) {
         const newNote = Note();
         newNote.id = req.session.user.id;
         newNote.title = req.params.title;
+        newNote.pub_year = req.params.pub_year;
         return newNote.save();
       }
       return new Promise((resolve) => {
@@ -18,6 +19,7 @@ exports.getNotes = (req, res) => {
       const view = {
         nickname: req.session.user.nickname,
         title: req.params.title,
+        pub_year: req.params.pub_year,
         note: note
       };
       res.render('note.ejs', view);
@@ -28,7 +30,7 @@ exports.getNotes = (req, res) => {
 }
 
 exports.addNote = (req, res) => {
-  Note.findOne({id: req.session.user.id, title: req.params.title}).exec()
+  Note.findOne({id: req.session.user.id, title: req.body.title, pub_year: req.body.pub_year}).exec()
     .then((note) => {
       const comment = req.body.comment;
       const page_begin = req.body.page_begin;
@@ -38,21 +40,22 @@ exports.addNote = (req, res) => {
       return note.save();
     })
     .then((note) => {
-      res.redirect('/note/'+req.params.title);
+      res.redirect('/note/'+req.body.title+'/'+req.body.pub_year);
     })
     .catch((err) => {
+      console.log(err);
       res.render('error.ejs', err);
     });
 }
 
 exports.delNote = (req, res) => {
-  Note.findOne({id: req.session.user.id, title: req.params.title}).exec()
+  Note.findOne({id: req.session.user.id, title: req.body.title}).exec()
     .then((note) => {
-      note.comments.splice(req.params.index, 1);
+      note.comments.splice(req.body.index, 1);
       return note.save();
     })
     .then((note) => {
-      res.redirect('/note/'+req.params.title);
+      res.redirect('/note/'+req.body.title+'/'+req.body.pub_year);
     })
     .catch((err) => {
       res.render('error.ejs', err);
@@ -60,19 +63,19 @@ exports.delNote = (req, res) => {
 }
 
 exports.upNote = (req, res) => {
-  Note.findOne({id: req.session.user.id, title: req.params.title}).exec()
+  Note.findOne({id: req.session.user.id, title: req.body.title}).exec()
   .then((note) => {
-    if (req.params.index <= 0) {      
+    if (req.body.index <= 0) {      
       return new Promise((resolve) => {
         resolve();
       });
     }
-    let currentComment = note.comments.splice(req.params.index, 1);
-    note.comments.splice(req.params.index - 1, 0, currentComment[0]);
+    let currentComment = note.comments.splice(req.body.index, 1);
+    note.comments.splice(req.body.index - 1, 0, currentComment[0]);
     return note.save();
   })
   .then((note) => {
-    res.redirect('/note/'+req.params.title);
+    res.redirect('/note/'+req.body.title+'/'+req.body.pub_year);
   })
   .catch((err) => {
     res.render('error.ejs', err);
@@ -80,19 +83,19 @@ exports.upNote = (req, res) => {
 }
 
 exports.downNote = (req, res) => {
-  Note.findOne({id: req.session.user.id, title: req.params.title}).exec()
+  Note.findOne({id: req.session.user.id, title: req.body.title}).exec()
   .then((note) => {
-    if (req.params.index >= note.comments.length) {
+    if (req.body.index >= note.comments.length) {
       return new Promise((resolve) => {
         resolve();
       });   
     }
-    let currentComment = note.comments.splice(req.params.index, 1);
-    note.comments.splice(req.params.index + 1, 0, currentComment[0]);
+    let currentComment = note.comments.splice(req.body.index, 1);
+    note.comments.splice(req.body.index + 1, 0, currentComment[0]);
     return note.save();
   })
   .then((note) => {
-    res.redirect('/note/'+req.params.title);
+    res.redirect('/note/'+req.body.title+'/'+req.body.pub_year);
   })
   .catch((err) => {
     res.render('error.ejs', err);

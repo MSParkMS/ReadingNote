@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.get('/', bookListController.getBookList);
 router.post('/', bookListController.addBookList);
-router.post('/del/:title/:pub_year', bookListController.delBookList);
+router.post('/del', bookListController.delBookList);
 
 module.exports = router;
