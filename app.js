@@ -9,6 +9,7 @@ const dbUrl = 'mongodb://localhost:27017/reading_note';
 mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
+// db log event
 db.on('error', (err) => console.log('Error: ' ,err));
 db.on('open', () => console.log('Connected'));
 
@@ -19,12 +20,15 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
 
 // middleware
+
+// express-session
 app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true
 }));
 
+// body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -34,6 +38,7 @@ app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
 app.use('/register', require('./routes/register'));
 
+// session expired
 app.use((req, res, next) => {
   if (req.session.user) {
     next();
@@ -49,6 +54,7 @@ app.use((req, res, next) => {
   }
 });
 
+// routes middleware using session
 app.use('/home', require('./routes/home'));
 app.use('/booklist', require('./routes/booklist'));
 app.use('/note', require('./routes/note'));
